@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentine's Date</title>
+  <style>
+    /* Valentine's theme CSS without animation */
+    body {
+      background-color: #ffcccc; /* Light red background color */
+      font-family: 'Arial', sans-serif; /* Use Arial font family */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh; /* Make the body take up the full viewport height */
+      margin: 0; /* Remove default margin */
+    }
+
+    h1 {
+      text-align: center;
+      color: #ff4d94; /* Dark pink heading color */
+      margin-top: 20px; /* Add some space at the top */
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 10px;
+      transition: transform 0.1s ease-in-out; /* Updated transition duration */
+      background-color: #ff99cc; /* Light pink button background color */
+      border: none;
+      color: #ffffff; /* White text color */
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+      cursor: pointer;
+      outline: none; /* Remove the default button outline */
+      border-radius: 5px; /* Rounded corners */
+    }
+
+    button:hover {
+      transform: scale(1.1); /* Scale up the button on hover */
+    }
+
+    #yesButton {
+      background-color: #ff4d94; /* Dark pink for "Yes" button */
+    }
+
+    #noButton {
+      background-color: #ff4d94; /* Dark pink for "No" button */
+      position: absolute;
+      z-index: 1;
+      display: none; /* Hide the "No" button initially */
+    }
+  </style>
+</head>
+<body>
+  <h1>Will you be my Valentine's date?</h1>
+  <button id="yesButton">Yes</button>
+  <button id="noButton">No</button>
+
+  <script>
+    function getRandomPosition() {
+      const button = document.getElementById('noButton');
+      const newX = Math.random() * (window.innerWidth - button.offsetWidth);
+      const newY = Math.random() * (window.innerHeight - button.offsetHeight);
+      return { x: newX, y: newY };
+    }
+
+    function moveButtonWithinRange() {
+      const button = document.getElementById('noButton');
+      const newPosition = getRandomPosition();
+      button.style.left = `${newPosition.x}px`;
+      button.style.top = `${newPosition.y}px`;
+    }
+
+    // Move the "No" button when the mouse gets near it
+    document.addEventListener('mousemove', function(event) {
+      const button = document.getElementById('noButton');
+      const rect = button.getBoundingClientRect();
+      const mouseX = event.clientX;
+      const mouseY = event.clientY;
+
+      if (
+        mouseX >= rect.left &&
+        mouseX <= rect.right &&
+        mouseY >= rect.top &&
+        mouseY <= rect.bottom
+      ) {
+        moveButtonWithinRange();
+      }
+    });
+
+    // Show the "No" button after a delay
+    setTimeout(function() {
+      const button = document.getElementById('noButton');
+      button.style.display = 'inline-block';
+      moveButtonWithinRange(); // Move the button to a random position when shown
+    }, 3000); // Adjust the delay as needed
+
+    // Redirect when "Yes" is clicked
+    document.getElementById('yesButton').addEventListener('click', function() {
+      window.location.href = 'https://www.youtube.com/watch?v=Bzo7LNI7D88';
+    });
+  </script>
+</body>
+</html>
